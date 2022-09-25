@@ -4,11 +4,19 @@ var express = require('express'),
   mongoose = require('mongoose'),
   Transactions = require('./api/models/transfer-app.model'),
   bodyParser = require('body-parser');
-  
+
+const cors = require('cors');
+const corsOptions = {
+  origin: 'http://localhost:8100',
+  credentials: true,
+  optionSuccessStatus: 200
+}
+app.use(cors(corsOptions));
+
 mongoose.Promise = global.Promise;
 
-mongoose.connect('mongodb://root:password@localhost:27017/?authSource=admin&readPreference=primary&appname=MongoDB%20Compass/transfer-app', function(err) {
-    if (err) throw err;
+mongoose.connect('mongodb+srv://mayurikarnik:mayuri123@cluster0.9frvga1.mongodb.net/?retryWrites=true&w=majority', function (err) {
+  if (err) throw err;
 });
 
 app.use(bodyParser.urlencoded({ extended: true }));
