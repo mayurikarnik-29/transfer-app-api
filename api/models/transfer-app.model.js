@@ -2,12 +2,10 @@
 'use strict';
 var mongoose = require('mongoose');
 var Schema = mongoose.Schema;
-const { v4: uuidv4 } = require('uuid');
 
 var TransactionSchema = new Schema({
   id: {
     type: String,
-    default: uuidv4(),
     immutable: true
   },
   account_holder: {

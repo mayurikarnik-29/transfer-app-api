@@ -2,6 +2,7 @@
 
 var mongoose = require('mongoose'),
   Transactions = mongoose.model('Transactions');
+  const { v4: uuidv4 } = require('uuid');
 
 exports.list_all_transfers = function (req, res) {
   Transactions.find({}, function (err, transfer) {
@@ -15,6 +16,7 @@ exports.list_all_transfers = function (req, res) {
 };
 
 exports.create_a_transfer = function (req, res) {
+  req.body.id = uuidv4();
   var new_transfer = new Transactions(req.body);
   new_transfer.save(function (err, transfer) {
     if (err)
@@ -57,8 +59,8 @@ exports.delete_a_transfer = function (req, res) {
     if (err)
       res.send(err);
     if (transfer)
-      res.json({ message: 'Transaction successfully deleted' });
+      res.json({ status: true, message: 'Transaction successfully deleted' });
     else
-      res.json({ message: 'Error while deleting record' });
+      res.json({ status:false, message: 'Error while deleting record' });
   });
 };
